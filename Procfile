@@ -1,0 +1,1 @@
+web: gunicorn artspro.wsgi --log-file-
