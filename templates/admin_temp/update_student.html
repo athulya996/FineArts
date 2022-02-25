@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+{% extends 'admin_home.html' %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+<div class="row" >
+     {% for message in messages %}
+        <div class="alert alert-info" role="alert">
+            <strong>{{message}}</strong>
+        </div>
+        {%endfor%}
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h1 align="center">REGISTER TEACHER</h1>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form method="post">{% csrf_token %}
+                              {{form|crispy}}
+                        <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">SUBMIT</button>
+
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}

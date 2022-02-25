@@ -1,0 +1,66 @@
+<!doctype html>
+{% extends 'student_home.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+  <head>
+  	<title>student_scoreboard</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{% static 'table1/css/style.css' %}">
+
+	</head>
+	<body>
+	<section class="">
+		{% for message in messages %}
+			<div class="alert alert-info" role="alert">
+				<strong>{{message}}</strong>
+			</div>
+        {% endfor %}
+
+		<div class="col-lg-12 mt-5">
+		<div class="container">
+				<div class="col-md-6 text-center mb-5">
+					<h1 class="heading-section">VIEW SCOREBOARD </h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						  <thead class="thead-dark">
+						    <tr>
+								<th>Si no</th>
+								<th>Group</th>
+                            	<th>Total Score</th>
+                        	</tr>
+                        	</thead>
+                        	<tbody>
+                        	{% for i in result %}
+                        	<tr>
+								<td>{{forloop.counter}}</td>
+								<td>{{i}}</td>
+                            	<td>{{i.total_score}}</td>
+                        	</tr>
+                        {% endfor %}
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<script src="{% static 'table1/js/jquery.min.js' %}"></script>
+  <script src="{% static 'table1/js/popper.js' %}"></script>
+  <script src="{% static 'table1/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'table1/js/main.js' %}"></script>
+
+	</body>
+{% endblock %}
+</html>

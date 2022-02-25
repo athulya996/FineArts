@@ -1,0 +1,89 @@
+<!doctype html>
+{% extends 'teacher_home.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+
+<html lang="en">
+  <head>
+  	<title>view group</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{% static 'table1/css/style.css' %}">
+
+	</head>
+	<body>
+	<section class="">
+		{% for message in messages %}
+			<div class="alert alert-info" role="alert">
+				<strong>{{message}}</strong>
+			</div>
+        {% endfor %}
+
+		<div class="col-lg-12 mt-5">
+		<div class="container">
+				<div class="col-md-6 mb-5">
+					<h5 class="header-title">GROUP MEMBERS</h5>
+				</div>
+			</div>
+			<form method="get" style="float:right" class="form-inline">
+				{{groupFilter.form|crispy}}
+				<button class="btn btn-primary" type="submit">search</button>
+			</form>
+			<br><br>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						  <thead class="thead-dark">
+						    <tr>
+						      <th>Si no</th>
+						      <th scope="col">Group</th>
+								<th scope="col">Name</th>
+								<th scope="col">Roll No</th>
+								<th scope="col">Contact No</th>
+								<th scope="col">Email</th>
+								<th scope="col">Semester</th>
+								<th scope="col">Department</th>
+							</tr>
+						  </thead>
+						  <tbody>
+						  {% for i in member %}
+						    <tr>
+								<th>{{forloop.counter}}</th>
+								<td>{{i.group}}</td>
+								<td>{{i.name}}</td>
+								<td>{{i.roll_no}}</td>
+								<td>{{i.contact_no}}</td>
+								<td>{{i.email}}</td>
+								<td>{{i.semester}}</td>
+								<td>{{i.department}}</td>
+							</tr>
+						    {% empty %}
+						  	<tr>
+						  		<td colspan="6"><h4>No Students Found..</h4></td>
+                            </tr>
+						  </tbody>
+							{%endfor%}
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<script src="{% static 'table1/js/jquery.min.js' %}"></script>
+  <script src="{% static 'table1/js/popper.js' %}"></script>
+  <script src="{% static 'table1/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'table1/js/main.js' %}"></script>
+
+	</body>
+{% endblock %}
+</html>
+

@@ -1,0 +1,109 @@
+<!doctype html>
+{% extends 'admin_home.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+  <head>
+  	<title>view group</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{% static 'table1/css/style.css' %}">
+
+	</head>
+	<body>
+	<section class="">
+		{% for message in messages %}
+			<div class="alert alert-info" role="alert">
+				<strong>{{message}}</strong>
+			</div>
+        {% endfor %}
+
+		<div class="col-lg-12 mt-5">
+		<div class="container">
+				<div class="col-md-6 mb-5">
+					<h5 class="header-title">STUDENT</h5>
+				</div>
+			</div>
+			 <form method="get" style="float:right" class="form-inline ">
+                <div class="md-form my-0">
+                    {{studentFilter.form }}
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </form>
+			<br><br>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+						<table class="table">
+						  <thead class="thead-dark">
+						    <tr>
+								<th>Si no</th>
+								<th>Name</th>
+						        <th>Contact no</th>
+						        <th>Email</th>
+						        <th>Roll no</th>
+						        <th>Semester</th>
+						        <th>Department</th>
+						        <th>Group</th>
+						        <th>Update</th>
+						        <th>Delete</th>
+
+						    </tr>
+						  </thead>
+						  <tbody>
+						  {% for i in student %}
+
+						  <tr>
+							 <td>{{forloop.counter}}</td>
+								<td>{{i.name}}</td>
+								<td>{{i.contact_no}}</td>
+								<td>{{i.email}}</td>
+								<td>{{i.roll_no}}</td>
+								<td>{{i.semester}}</td>
+								<td>{{i.department}}</td>
+								<td>
+                                {% if i.group == None %}
+                                <a href="{% url 'assign_group' i.user_id %}">Assign Group</a>
+                                {% else %}
+                                {{i.group}}
+                                {% endif %}
+                            </td>
+								<td><a id="user_id" href="{% url 'update_student' i.user_id %}">
+									<button type="submit" class="btn btn-primary">Update</button></a>
+								</td>
+								<td>
+									<form action="{% url 'delete_student' i.user_id %}" method='POST'>
+										{% csrf_token %}
+										<input type="hidden" name="student" value="{{ i.user_id }}">
+										<button type="submit" class="btn btn-danger">Delete</button>
+									</form>
+								</td>
+							</tr>
+						  {% empty %}
+						  <tr>
+							  <td  colspan="6"><h4>No Students Found..</h4></td>
+						  </tr>
+						  {%endfor%}
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+	</section>
+
+	<script src="{% static 'table1/js/jquery.min.js' %}"></script>
+  <script src="{% static 'table1/js/popper.js' %}"></script>
+  <script src="{% static 'table1/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'table1/js/main.js' %}"></script>
+
+	</body>
+{% endblock %}
+</html>
+
+

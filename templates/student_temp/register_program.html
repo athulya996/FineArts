@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends 'student_home.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+
+<div class="row" >
+    <div class="col-12 grid-margin">
+        {% for message in messages %}
+        <div class="alert alert-info" role="alert">
+            <strong>{{message}}</strong>
+        </div>
+        {%endfor%}
+        <div class="card">
+            <div class="card-body">
+                <h1 align="center">REGISTER PROGRAM</h1>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form method="post">{% csrf_token %}
+                           <div class="form-group">
+                            <label class="col-form-label">Program</label>
+                            <input class="form-control" type="text" value="{{program}}" readonly>
+                        </div>
+							 <p> Please Select {{program.limitation_for_participation}} Students</p>
+
+                        {% for i in limit %}
+
+                        <div class="form-group">
+<!--                            <label class="col-form-label">Students</label>-->
+                            <select name="student" class="form-control" required>
+                                {% for k in students %}
+                                <option value="{{k.user_id}}">{{k.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">
+                            Submit
+                        </button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
