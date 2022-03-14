@@ -27,16 +27,19 @@
 
 		<div class="col-lg-12 mt-5">
 		<div class="container">
-				<div class="col-md-6 text-center mb-5">
-					<h1 class="heading-section">VIEW GROUP </h1>
+<!--				<div class="col-md-6 text-center mb-5">-->
+<!--					<h1 class="heading-section">VIEW GROUP </h1>-->
 
-				</div>
+<!--				</div>-->
 		</div>
-			<form method="get" style="float:right" class="form-inline">
-				{{groupFilter.form|crispy}}
-				<button class="btn btn-primary" type="submit">search</button>
-			</form>
-			<br><br>
+			<div class="card">
+                <div class="card-body">
+					<h2 class="heading-section">Members</h2>
+					<form method="get" style="float:right" class="form-inline">
+						{{groupFilter.form|crispy}}
+						<button class="btn btn-primary" type="submit">search</button>
+					</form>
+					<br><br>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="table-wrap">
@@ -73,6 +76,8 @@
 						  </tbody>
 						</table>
 					</div>
+				</div>
+			</div>
 				</div>
 			</div>
 		</div>

@@ -30,7 +30,7 @@ def members(request):
 
 @login_required(login_url='login_view')
 def program_views(request):
-    program = Program.objects.all()
+    program = Program.objects.all().order_by('-id')
     programFilter = ProgramFilter(request.GET, queryset=program)
     program = programFilter.qs
     context = {
@@ -76,11 +76,19 @@ def teacher_register(request):
         'registerFilter':registerFilter
     }
     return render(request,'teacher_temp/teacher_register.html', context)
+def register_delete(request, id):
+    i = ProgramRegistration.objects.get(id=id)
+    if request.method == 'POST':
+        i.delete()
+        messages.info(request, 'Registration Deleted Successfully')
+        return redirect('teacher_register')
+    else:
+        return redirect('teacher_register')
 
 
 @login_required(login_url='login_view')
 def program_result(request):
-    program = Program.objects.all()
+    program = Program.objects.all().order_by('-mark')
     programFilter = ProgramFilter(request.GET, queryset=program)
     program = programFilter.qs
     context = {

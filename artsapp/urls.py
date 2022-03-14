@@ -45,6 +45,7 @@ urlpatterns = [
    path('program_updates/<int:id>/', teacher_views.program_updates, name='program_updates'),
    path('add_program_teacher/', teacher_views.add_program_teacher, name='add_program_teacher'),
    path('teacher_register/', teacher_views.teacher_register, name='teacher_register'),
+   path('register_delete/<int:id>', teacher_views.register_delete, name='register_delete'),
    path('program_result/', teacher_views.program_result, name='program_result'),
    path('add_result/<int:id>/', teacher_views.add_result, name='add_result'),
    path('result_teacher/', teacher_views.result_teacher, name='result_teacher'),

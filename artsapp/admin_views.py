@@ -33,7 +33,7 @@ def add_group(request):
 
 @login_required(login_url='login_view')
 def view_group(request):
-    group = Group.objects.all()
+    group = Group.objects.all().order_by('-id')
     return render(request, 'admin_temp/view_group.html', {'group': group})
 
 
@@ -82,7 +82,7 @@ def register_teacher(request):
 
 @login_required(login_url='login_view')
 def view_teacher(request):
-    teacher = Teacher.objects.all()
+    teacher = Teacher.objects.all().order_by('-user_id')
     teacherFilter = TeacherFilter(request.GET, queryset=teacher)
     teacher = teacherFilter.qs
     context = {
@@ -136,7 +136,7 @@ def register_student(request):
 
 @login_required(login_url='login_view')
 def view_student(request):
-    student = Student.objects.all()
+    student = Student.objects.all().order_by('-user_id')
     studentFilter = StudentFilter(request.GET, queryset=student)
     student = studentFilter.qs
     context = {
@@ -195,7 +195,7 @@ def add_program(request):
 
 @login_required(login_url='login_view')
 def view_program(request):
-    program = Program.objects.all()
+    program = Program.objects.all().order_by('-id')
     programFilter = ProgramFilter(request.GET, queryset=program)
     program = programFilter.qs
     context = {
@@ -245,6 +245,7 @@ def program_register(request):
 
 
 
+
 @login_required(login_url='login_view')
 def result_list(request):
     result = Program.objects.all()
@@ -274,7 +275,7 @@ def view_result(request, id):
 def score_board(request):
     result = Group.objects.all().order_by('-total_score')
 
-    return render(request, 'admin_temp/score_board.html', {'results': result})
+    return render(request, 'admin_temp/score_board.html', {'result': result})
 
 
 

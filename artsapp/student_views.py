@@ -18,7 +18,7 @@ def welcome_student(request):
 @login_required(login_url='login_view')
 def group_view(request):
     student = Student.objects.get(user=request.user)
-    member = Student.objects.filter(user=student.user)
+    member = Student.objects.filter(group=student.group)
     groupFilter = StudentFilter(request.GET, queryset=member)
     member = groupFilter.qs
     context = {
@@ -30,7 +30,7 @@ def group_view(request):
 
 @login_required(login_url='login_view')
 def program_student(request):
-    program = Program.objects.all()
+    program = Program.objects.all().order_by('-id')
     programFilter = ProgramFilter(request.GET, queryset=program)
     program = programFilter.qs
     context = {
@@ -44,12 +44,15 @@ def program_student(request):
 def register_program(request, id):
     u = Student.objects.get(user=request.user)
     grp = u.group
+
     if grp == None or grp == "":
         messages.info(request, "You Haven't Assigned to Any Group yet")
         return redirect('program_student')
     else:
         program = Program.objects.get(id=id)
+
         limit = program.limitation_of_participation
+
         limit1 = []
         for i in range(limit):
             limit1.append(i)
@@ -66,22 +69,24 @@ def register_program(request, id):
                     if reg_qs.exists():
                         messages.info(request,"Your Group {} Already Registered for the Program {}".format(grp, program))
                         return redirect('program_student')
-                    if len(std) > limit:
-                        messages.info(request, 'Maximum no of group members is {}'.format(limit))
                     else:
-                        obj = ProgramRegistration.objects.create(program=program, submitted_date=datetime.date.today(), group=grp,)
-                        for i in std:
-                            id = int(i)
-                            student_list, created = StudentList.objects.get_or_create(
-                                program=program,
-                                group=grp,
-                                student=Student.objects.get(user_id=id)
-                            )
+                        if len(std) > limit:
+                            messages.info(request, 'Maximum no of group members is {}'.format(limit))
+                        else:
+                            obj = ProgramRegistration.objects.create(program=program,
+                                                                     submitted_date=datetime.date.today(), group=grp,)
+                            for i in std:
+                                id = int(i)
+                                student_list, created = StudentList.objects.get_or_create(
+                                    program=program,
+                                    group=grp,
+                                    student=Student.objects.get(user_id=id)
+                                )
                             obj.students.add(student_list)
-                            messages.info(request, 'Successfully Registered for Program')
-                            return redirect('registered_program')
-        else:
-            messages.info(request, "You Can't Select Same Students ")
+                        messages.info(request, 'Successfully Registered for Program')
+                        return redirect('registered_program')
+                else:
+                    messages.info(request, "You Can't Select Same Students ")
     return render(request, 'student_temp/register_program.html', context)
 
 
@@ -97,7 +102,7 @@ def registered_program(request):
 
 @login_required(login_url='login_view')
 def result_student(request):
-    result = Program.objects.all()
+    result = Program.objects.all().order_by('-id')
 
     programFilter = ProgramFilter(request.GET, queryset=result)
     result = programFilter.qs

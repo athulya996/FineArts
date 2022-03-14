@@ -1,5 +1,6 @@
 <!doctype html>
 {% extends 'admin_home.html' %}
+{% load crispy_forms_filters %}
 {% load static %}
 {% block content %}
 <html lang="en">
@@ -25,15 +26,17 @@
 
 		<div class="col-lg-12 mt-12">
 		<div class="container">
-				<div class="col-md-6 mb-5">
-					<h5 class="">PROGRAM REGISTER</h5>
-				</div>
+<!--				<div class="col-md-6 mb-5">-->
+<!--					<h5 class="">PROGRAM REGISTER</h5>-->
+<!--				</div>-->
 			</div>
-            <form method="get" style="float:right" class="form-inline">
-                <div class="md-form my-0">
-                    {{registerFilter.form }}
+            <div class="card">
+                <div class="card-body">
+                     <h4 class="header-title">Registrations</h4>
+						<form method="get" style="float:right" class="form-inline ">
+                    			{{registerFilter.form|crispy }}
                     <button class="btn btn-primary" type="submit">Search</button>
-                </div>
+
             </form>
             <br><br><br>
 			<div class="row">
@@ -47,13 +50,14 @@
                               <th scope="col">Group</th>
                               <th scope="col">Student Name</th>
                               <th scope="col">Submitted Date</th>
+<!--                              <th scope="col">Delete</th>-->
 
                           </tr>
                           </thead>
                             <tbody>
                             {% for i in program %}
                             <tr>
-                                <th scope="row">{{forloop.counter}}</th>
+                                <th >{{forloop.counter}}</th>
                                 <td>{{i.program}}</td>
                                 <td>{{i.group}}</td>
                                 <td>
@@ -62,6 +66,7 @@
 
                                     {% endfor %}
                                 <td>{{i.submitted_date}}</td>
+
                             </tr>
                             {% empty %}
                             <tr>
@@ -69,11 +74,13 @@
                             </tr>
                             {% endfor %}
 						</table>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
+                    </div>
+                </div>
+            </div>
+                </div>
+            </div>
+           </div>
+
 	</section>
 
 	<script src="{% static 'table1/js/jquery.min.js' %}"></script>

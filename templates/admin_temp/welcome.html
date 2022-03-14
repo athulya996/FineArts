@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% extends 'admin_home.html'  %}
+{% load static %}
 {% block content %}
 <html lang="en">
 <head>
@@ -34,12 +35,13 @@
         <div class="page-wrapper">
                                     <!-- Page-body start -->
             <br><br><br><br>
-            <div class="page-body" >
+            <div class="" >
                 <div class="row">
-                    <div class="col-xl-6 col-md-12">
+                    <div class="col-xl-12 col-md-12">
                         <div class="card table-card" align="centre">
                             <div class="card-header">
                                 <h1>Welcome {{request.user}} !</h1>
+                                <img src="{% static 'assets/images/admin-administration.jpg' %}" width="100%">
                             </div>
                         </div>
                         <div class="card-block">

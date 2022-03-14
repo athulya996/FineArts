@@ -1,1 +1,1 @@
-web: gunicorn artspro.wsgi --log-file-
+web: gunicorn artspro.wsgi --log-file -
